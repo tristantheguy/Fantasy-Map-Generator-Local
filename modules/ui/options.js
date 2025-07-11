@@ -327,7 +327,8 @@ const cellsDensityMap = {
   10: 70000,
   11: 80000,
   12: 90000,
-  13: 100000
+  13: 100000,
+  14: 200000
 };
 
 function changeCellsDensity(value) {
