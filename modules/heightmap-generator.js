@@ -128,6 +128,21 @@ window.HeightmapGenerator = (function () {
     return linePowerMap[cells] || 0.81;
   }
 
+  function lowestNeighbor(cell) {
+    const neighbors = grid.cells.c[cell];
+    let lowest = neighbors[0];
+    let minHeight = heights[lowest];
+    for (let k = 1; k < neighbors.length; k++) {
+      const n = neighbors[k];
+      const h = heights[n];
+      if (h < minHeight) {
+        minHeight = h;
+        lowest = n;
+      }
+    }
+    return lowest;
+  }
+
   const addHill = (count, height, rangeX, rangeY) => {
     count = getNumberInRange(count);
     while (count > 0) {
@@ -284,8 +299,8 @@ window.HeightmapGenerator = (function () {
       // generate prominences
       range.forEach((cur, d) => {
         if (d % 6 !== 0) return;
-        for (const l of d3.range(i)) {
-          const min = grid.cells.c[cur][d3.scan(grid.cells.c[cur], (a, b) => heights[a] - heights[b])]; // downhill cell
+        for (let l = 0; l < i; l++) {
+          const min = lowestNeighbor(cur); // downhill cell
           heights[min] = (heights[cur] * 2 + heights[min]) / 3;
           cur = min;
         }
@@ -381,8 +396,8 @@ window.HeightmapGenerator = (function () {
       // generate prominences
       range.forEach((cur, d) => {
         if (d % 6 !== 0) return;
-        for (const l of d3.range(i)) {
-          const min = grid.cells.c[cur][d3.scan(grid.cells.c[cur], (a, b) => heights[a] - heights[b])]; // downhill cell
+        for (let l = 0; l < i; l++) {
+          const min = lowestNeighbor(cur); // downhill cell
           //debug.append("circle").attr("cx", p[min][0]).attr("cy", p[min][1]).attr("r", 1);
           heights[min] = (heights[cur] * 2 + heights[min]) / 3;
           cur = min;
