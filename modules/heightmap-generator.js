@@ -101,7 +101,8 @@ window.HeightmapGenerator = (function () {
       70000: 0.9955,
       80000: 0.996,
       90000: 0.9964,
-      100000: 0.9973
+      100000: 0.9973,
+      200000: 0.998
     };
     return blobPowerMap[cells] || 0.98;
   }
@@ -120,7 +121,8 @@ window.HeightmapGenerator = (function () {
       70000: 0.88,
       80000: 0.91,
       90000: 0.92,
-      100000: 0.93
+      100000: 0.93,
+      200000: 0.94
     };
 
     return linePowerMap[cells] || 0.81;
